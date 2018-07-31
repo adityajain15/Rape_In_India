@@ -11,7 +11,8 @@ export default new Vuex.Store({
     table1: [],
     india_geo: {},
     allPoints: {},
-    allPositions: []
+    allPositions: [],
+    layout2: []
   },
   mutations: {
     addCrimeTotal (state, payload) {
@@ -46,11 +47,26 @@ export default new Vuex.Store({
     },
     getPoints (state, getters) {
       const projection = geoMercator()
-        .translate([state.width/2, state.height/2])
+        .translate([state.width / 2, state.height / 2])
         .scale(1000)
         .center([82.94393157959001, 21.868324442109888])
-      
+
       return state.allPositions.map(d => projection(d))
+    },
+    minDimension (state) {
+      return Math.min(state.width, state.height)
+    },
+    sideLength (state, getters) {
+      return 1
+    },
+    layout2 (state, getters) {
+      //338954
+      const positions = [...Array(338954).keys()].map(d => {
+        const xPosition = ((d % 583))
+        const yPosition = Math.floor(d / 583)
+        return [xPosition, yPosition]
+      })
+      return positions
     }
   }
 })

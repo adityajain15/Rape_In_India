@@ -24,7 +24,10 @@ export default {
     window.addEventListener('resize', debounce(this.resizeFunc, 60))
     
     this.regl = require('regl')({
-      canvas: this.$el
+      canvas: this.$el,
+      attributes: {
+        antialias: false
+      }
     })
     
     const drawPoints = this.regl({
@@ -44,6 +47,9 @@ export default {
         },
         stageHeight:  function(context, props) {
           return props.height
+        },
+        pointWidth: function (context, props) {
+          return props.pointWidth
         }
       },
       count: function(context, props) {
@@ -56,7 +62,8 @@ export default {
       drawPoints({
         points: this.$store.getters.getPoints,
         height: this.$store.state.height,
-        width: this.$store.state.width
+        width: this.$store.state.width,
+        pointWidth: 1
       })
     })
   },
@@ -72,9 +79,6 @@ export default {
     resizeFunc () {
       this.$store.commit('setWindowWidth', this.$el.clientWidth)
       this.$store.commit('setWindowHeight', this.$el.clientHeight)
-    },
-    mouseMove (event) {
-      console.log(event)
     }
   }
 }

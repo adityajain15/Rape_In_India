@@ -3,6 +3,7 @@ attribute vec2 position;
 
 uniform float stageWidth;
 uniform float stageHeight;
+uniform float pointWidth;
 
 // Credits to Peter Beshai
 vec2 normalizeCoords(vec2 position) {
@@ -17,6 +18,6 @@ vec2 normalizeCoords(vec2 position) {
 }
 
 void main () {
-  gl_PointSize = 0.8;
+  gl_PointSize = pointWidth;
   gl_Position = vec4(normalizeCoords(position), 0, 1);
 }
