@@ -3,9 +3,10 @@ import App from './App.vue'
 import store from './store'
 import { csvParse } from 'd3-dsv'
 import { randomPoint } from '@turf/random'
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon'
 import bbox from '@turf/bbox'
 import { geoContains } from 'd3-geo'
-
+/*
 const Table1 = fetch('./tab1.csv')
   .then(response => response.text())
   .then(response => {
@@ -26,7 +27,7 @@ const indiaPoints = fetch('./something3.json')
     }
   })
 
-/*Promise.all([Table1, IndiaGeo])
+Promise.all([Table1, IndiaGeo])
   .then(() => {
     store.getters.getCrimeTotals.map(d => {
       const totalCrimes = d['2016']

@@ -1,0 +1,14 @@
+source,target,value
+"This year","Total",38957
+"Last year","Total",16124
+"Total","Cases Pending Investigation at the End of the Year",16678
+"Total","Cases withdrawn by the government",6
+"Total","Cases disposed by the Police",38387
+"Cases disposed by the Police","Cases Transferred to other PS/ Magistrate", 129
+"Cases disposed by the Police","Cases Not Investigated U/S 157(1) (b) of Cr.PC", 2
+"Cases disposed by the Police",Final Report, 38256
+"Final Report",True but insufficient Evidence,1474
+"Final Report",False,2839
+"Final Report",Mistake of Fact,249
+"Final Report",Non Cognizable,66
+"Final Report",Chargesheeted,33628
