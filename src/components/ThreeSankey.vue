@@ -42,7 +42,7 @@ export default {
         .layout(32)
     }
 
-    /*for(let i=0;i<this.graph.nodes.length;i++) {
+    for(let i=0;i<this.graph.nodes.length;i++) {
 
       var rectGeometry = new THREE.Geometry()
       rectGeometry.vertices.push(new THREE.Vector3(0, 0,0))
@@ -58,7 +58,7 @@ export default {
       var rectMesh = new THREE.Mesh(rectGeometry, rectMaterial)
       rectMesh.position.set(this.graph.nodes[i].x - this.width/2 + 10 , this.graph.nodes[i].y - this.height / 2 + 10 , 0)
       this.scene.add(rectMesh)
-    }*/
+    }
 
     for(let i = 0; i < this.graph.nodes.length; i++) {
       if (!this.graph.nodes[i].targetLinks.length) {

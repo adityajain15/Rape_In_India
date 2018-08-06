@@ -63,44 +63,106 @@ export default function () {
   function getAdjustedYCoordinate (y) {
     return y - (size[1] / 2)
   }
+
   sankey.link = function (d, value, scene) {
-    const curvature = 0.5
-    var starsMaterial = new PointsMaterial( { color: 0xff0000, size: 1} )
-    
-    var geometry = new BufferGeometry()    
+    var starsMaterial = new PointsMaterial({color: 0xff0000, size: 1})
+    var geometry = new BufferGeometry()
     geometry.addAttribute('position', new BufferAttribute( new Float32Array( value * 2 ), 2))
     scene.add(new Points(geometry, starsMaterial))
-
-    const positions = geometry.attributes.position.array
-    const x0 = getAdjustedXCoordinate(d.source.x + d.source.dx)
-    const x1 = getAdjustedXCoordinate(d.target.x)
+    const positions = geometry.attributes.position
+    const positionArray = positions.array
+    const x0 = getAdjustedXCoordinate(d.source.x)
+    const x1 = getAdjustedXCoordinate(d.target.x) + (Math.random() * 2)
     let index = 0
-
-    const nextTargetValues = d.target.sourceLinks.map(d=>d.value)
-    console.log(nextTargetValues)
     for (let i = 0; i < value; i++) {
       const y1 = getAdjustedYCoordinate(d.target.y + d.ty + (Math.random() * d.dy))
       const y0 = getAdjustedYCoordinate(d.source.y + d.sy + (Math.random() * d.dy))
       const thisIndex = index
-      positions[index++] = x0 + (Math.random() * 2)
-      positions[index++] = y0 + (Math.random() * 2)
-
+      positionArray[index++] = x0 + (Math.random() * d.source.dx)
+      positionArray[index++] = y0
       const coordinates = {x: x0, y: y0}
-
-      TweenLite.to(coordinates, 1 + (15 * Math.random()), {
+      TweenLite.to(coordinates, 1 + (5 * Math.random()), {
         x: x1,
         y: y1,
         delay: 2 + Math.random() * 30,
         onUpdate: () => {
-          positions[thisIndex] = coordinates.x
-          positions[thisIndex + 1] = coordinates.y
-          geometry.attributes.position.needsUpdate = true
+          positionArray[thisIndex] = coordinates.x
+          positionArray[thisIndex + 1] = coordinates.y
+          positions.needsUpdate = true
         },
         onComplete: () => {
-          //console.log(d)
+          const shuffledIndices = shuffle(d.target.sourceLinks.map((d, i) => i))
+          for (let i = 0; i < d.target.sourceLinks.length; i++) {
+            if (d.target.sourceLinks[shuffledIndices[i]].value > 0) {
+              d.target.sourceLinks[shuffledIndices[i]].value--
+              movePointTo(positions, thisIndex, d.target.sourceLinks[shuffledIndices[i]])
+              break
+            }
+          }
         }
       })
     }
+  }
+
+  // shuffle the array (https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array)
+  function shuffle (a) {
+    var j, x, i
+    for (i = a.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1))
+      x = a[i]
+      a[i] = a[j]
+      a[j] = x
+    }
+    return a
+  }
+
+  function movePointTo (positions, currentIndex, link) {
+    const positionArray = positions.array
+    const nextX = getAdjustedXCoordinate(link.target.x) + (Math.random() * link.source.dx)
+    const nextY = getAdjustedYCoordinate(link.target.y + link.ty + (Math.random() * link.dy))
+    const currentCoordinates = {x: positionArray[currentIndex], y: positionArray[currentIndex + 1]}
+    TweenLite.to(currentCoordinates, 1 + (20 * Math.random()), {
+      x: nextX,
+      y: nextY,
+      ease: Cubic.easeInOut,
+      onUpdate: () => {
+        positionArray[currentIndex] = currentCoordinates.x
+        positionArray[currentIndex + 1] = currentCoordinates.y
+        positions.needsUpdate = true
+      },
+      onComplete: () => {
+        const shuffledIndices = shuffle(link.target.sourceLinks.map((d, i) => i))
+        for (let i = 0; i < link.target.sourceLinks.length; i++) {
+          if (link.target.sourceLinks[shuffledIndices[i]].value > 0) {
+            link.target.sourceLinks[shuffledIndices[i]].value--
+            movePointTo(positions, currentIndex, link.target.sourceLinks[shuffledIndices[i]])
+            break
+          }
+        }
+      }
+    })
+  }
+
+  sankey.initiate = function (scene) {
+    const points = createPoints(scene)
+
+    const positions = points.geometry.attributes.position.array
+    let index = 0
+  }
+
+  function createPoints (scene) {
+    let totalSourceValue = 0
+    for (let i = 0; i < nodes.length; i++) {
+      if (!nodes[i].targetLinks.length) {
+        totalSourceValue = totalSourceValue + nodes[i].value
+      }
+    }
+    var material = new PointsMaterial({color: 0xff0000, size: 1})
+    var geometry = new BufferGeometry()
+    geometry.addAttribute('position', new BufferAttribute(new Float32Array(totalSourceValue * 2), 2))
+    const points = new Points(geometry, material)
+    scene.add(points)
+    return points
   }
 
   // Populate the sourceLinks and targetLinks for each node.
