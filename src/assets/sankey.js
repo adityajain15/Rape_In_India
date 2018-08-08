@@ -91,7 +91,7 @@ export default function () {
           positions.needsUpdate = true
         },
         onComplete: () => {
-          const shuffledIndices = shuffle(d.target.sourceLinks.map((d, i) => i))
+          const shuffledIndices = shuffle(d.target.sourceLinks.map((d, i) => i), d.target.sourceLinks.map(d => d.value))
           for (let i = 0; i < d.target.sourceLinks.length; i++) {
             if (d.target.sourceLinks[shuffledIndices[i]].value > 0) {
               d.target.sourceLinks[shuffledIndices[i]].value--
@@ -105,8 +105,10 @@ export default function () {
   }
 
   // shuffle the array (https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array)
-  function shuffle (a) {
-    var j, x, i
+  function shuffle (a, d) {
+    if (!d.length) { return }
+
+    let j, x, i
     for (i = a.length - 1; i > 0; i--) {
       j = Math.floor(Math.random() * (i + 1))
       x = a[i]
@@ -114,6 +116,21 @@ export default function () {
       a[j] = x
     }
     return a
+    //debugger
+    const sum = d.reduce((x, y) => x + y)
+    let randomNum = Math.random()
+    const picked = []
+    const passed = []
+    for (let i = 0; i < d.length; i++) {
+      if (randomNum < (d[a[i]] / sum)) {
+        picked.push(a[i])
+        randomNum = Math.random()
+      } else {
+        passed.push(a[i])
+      }
+    }
+    //console.log([...picked, ...passed])
+    return [...picked, ...passed]
   }
 
   function movePointTo (positions, currentIndex, link) {
@@ -131,7 +148,8 @@ export default function () {
         positions.needsUpdate = true
       },
       onComplete: () => {
-        const shuffledIndices = shuffle(link.target.sourceLinks.map((d, i) => i))
+
+        const shuffledIndices = shuffle(link.target.sourceLinks.map((d, i) => i), link.target.sourceLinks.map(d => d.value))
         for (let i = 0; i < link.target.sourceLinks.length; i++) {
           if (link.target.sourceLinks[shuffledIndices[i]].value > 0) {
             link.target.sourceLinks[shuffledIndices[i]].value--

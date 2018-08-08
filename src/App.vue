@@ -1,5 +1,5 @@
 <template>
-  <ThreeSankey fileString="policeDisposal"></ThreeSankey>
+  <ThreeSankey fileString="courtDisposal"></ThreeSankey>
 </template>
 
 <script>

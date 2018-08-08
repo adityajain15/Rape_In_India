@@ -10,6 +10,8 @@ import { csv as d3csv } from 'd3-fetch'
 import { scaleLinear } from 'd3-scale'
 const debounce = require('lodash.debounce')
 const THREE = require('three')
+const fragmentShader = require('raw-loader!glslify-loader!../shaders/frag.glsl')
+const vertexShader = require('raw-loader!glslify-loader!../shaders/vertex.glsl')
 
 export default {
   name: 'ThreeSankey',
