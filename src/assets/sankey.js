@@ -1,8 +1,6 @@
 import { nest } from 'd3-collection'
 import { sum, min, ascending } from 'd3-array'
 import { interpolateNumber } from 'd3-interpolate'
-import { CubicBezierCurve, Vector2, Points, PointsMaterial, BufferAttribute, BufferGeometry, LineBasicMaterial, Line, LineSegments } from 'three'
-import { TweenLite } from 'gsap'
 
 export default function () {
   var sankey = {},
