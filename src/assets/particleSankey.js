@@ -5,7 +5,7 @@ const fragmentShader = require('raw-loader!glslify-loader!../shaders/frag.glsl')
 const vertexShader = require('raw-loader!glslify-loader!../shaders/vertex.glsl')
 
 export default class ParticleSankey {
-  constructor (reglInstance, csvData, [width, height]) {
+  constructor (reglInstance, csvData, [width, height], textNodes) {
     this.data = sankeyHelper(csvData)
     this.regl = reglInstance
     this.width = width
@@ -17,51 +17,42 @@ export default class ParticleSankey {
       .nodePadding(40)
       .size([width - 20, height - 20])
       .layout(32)
+    this.nodes = this.graph.nodes()
+    this.numPoints = this.getNumPoints()
+    // setup buffers
+    this.sourceX = new Float32Array(this.numPoints)
+    this.sourceY = new Float32Array(this.numPoints)
+    this.targetX = new Float32Array(this.numPoints)
+    this.targetY = new Float32Array(this.numPoints)
+    this.duration = new Float32Array(this.numPoints)
+    this.elapsed = new Float32Array(this.numPoints)
+    this.currentPositions = []
+    this.startTime = undefined
 
+    this.init()
+  }
+
+  getNodes () {
+    return this.nodes
+  }
+
+  getNumPoints () {
     let numPoints = 0
-    const nodes = this.graph.nodes()
     // go through all the graph nodes
-    for (let i = 0; i < nodes.length; i++) {
+    for (let i = 0; i < this.nodes.length; i++) {
       // select nodes that are sources
-      if (!nodes[i].targetLinks.length) {
-        for (let j = 0; j < nodes[i].sourceLinks.length; j++) {
-          numPoints += nodes[i].sourceLinks[j].value
+      if (!this.nodes[i].targetLinks.length) {
+        for (let j = 0; j < this.nodes[i].sourceLinks.length; j++) {
+          numPoints += this.nodes[i].sourceLinks[j].value
         }
       }
     }
+    return numPoints
+  }
 
-    const sourceX = new Float32Array(numPoints)
-    const sourceY = new Float32Array(numPoints)
-    const targetX = new Float32Array(numPoints)
-    const targetY = new Float32Array(numPoints)
-    const duration = new Float32Array(numPoints)
-    const elapsed = new Float32Array(numPoints)
-    const currentPositions = []
-    let startTime
-
-    let index = 0
-    for (let i = 0; i < nodes.length; i++) {
-      // select nodes that are sources
-      if (!nodes[i].targetLinks.length) {
-        // select all links between sources and their children
-        for (let j = 0; j < nodes[i].sourceLinks.length; j++) {
-          const d = nodes[i].sourceLinks[j]
-          for (let k = 0; k < d.value; k++, index++) {
-            const x0 = d.source.x + (Math.random() * d.source.dx)
-            const y0 = d.source.y + d.sy + (Math.random() * d.dy)
-            const x1 = d.target.x + (Math.random() * d.target.dx)
-            const y1 = d.target.y + d.ty + (Math.random() * d.dy)
-
-            sourceX[index] = x0
-            sourceY[index] = y0
-            targetX[index] = x1
-            targetY[index] = y1
-            duration[index] = (Math.random() * 18 + 2) * 1000
-            currentPositions.push(d)
-          }
-        }
-      }
-    }
+  init () {
+    // setup initial positions for all the points
+    this.initialPositions()
 
     const drawPoints = this.regl({
       frag: fragmentShader,
@@ -88,52 +79,76 @@ export default class ParticleSankey {
           return props.pointWidth
         }
       },
-      count: function (context, props) {
-        return numPoints
-      },
+      count: this.numPoints,
       primitive: 'points'
     })
 
     this.regl.frame(({time}) => {
-      if (!startTime) {
-        startTime = new Float32Array(numPoints)
-        for (let i = 0; i < numPoints; i++) {
-          startTime[i] = time + (Math.random() * 20)
+      if (!this.startTime) {
+        this.startTime = new Float32Array(this.numPoints)
+        for (let i = 0; i < this.numPoints; i++) {
+          this.startTime[i] = time + (Math.random() * 20)
         }
       }
 
-      for (let i = 0; i < numPoints; i++) {
-        elapsed[i] = (time - startTime[i]) * 1000
-        if (elapsed[i] > duration[i] && currentPositions[i].target.sourceLinks.length) {
+      for (let i = 0; i < this.numPoints; i++) {
+        this.elapsed[i] = (time - this.startTime[i]) * 1000
+        if (this.elapsed[i] > this.duration[i] && this.currentPositions[i].target.sourceLinks.length) {
           // We may have multiple possibilities for our next destination. We pick one probabilistically
-          const sum = currentPositions[i].target.sourceLinks.map(d => d.value).reduce((x, y) => x + y)
-          const probabilities = currentPositions[i].target.sourceLinks.map(d => d.value / sum)
+          const sum = this.currentPositions[i].target.sourceLinks.map(d => d.value).reduce((x, y) => x + y)
+          const probabilities = this.currentPositions[i].target.sourceLinks.map(d => d.value / sum)
           const selectionIndex = weightedRandom(probabilities)
-          currentPositions[i].target.sourceLinks[selectionIndex].value--
-          currentPositions[i] = currentPositions[i].target.sourceLinks[selectionIndex]
+          this.currentPositions[i].target.sourceLinks[selectionIndex].value--
+          this.currentPositions[i] = this.currentPositions[i].target.sourceLinks[selectionIndex]
 
-          const d = currentPositions[i]
-          startTime[i] = time
-          elapsed[i] = (time - startTime[i]) * 1000
-          sourceX[i] = targetX[i]
-          sourceY[i] = targetY[i]
-          targetX[i] = d.target.x + (Math.random() * d.target.dx)
-          targetY[i] = d.target.y + d.ty + (Math.random() * d.dy)
+          const d = this.currentPositions[i]
+          this.startTime[i] = time
+          this.elapsed[i] = (time - this.startTime[i]) * 1000
+          this.sourceX[i] = this.targetX[i]
+          this.sourceY[i] = this.targetY[i]
+          this.targetX[i] = d.target.x + (Math.random() * d.target.dx)
+          this.targetY[i] = d.target.y + d.ty + (Math.random() * d.dy)
         }
       }
 
       drawPoints({
-        sourceX,
-        sourceY,
-        targetX,
-        targetY,
-        elapsed,
-        duration,
-        startTime,
+        sourceX: this.sourceX,
+        sourceY: this.sourceY,
+        targetX: this.targetX,
+        targetY: this.targetY,
+        elapsed: this.elapsed,
+        duration: this.duration,
+        startTime: this.startTime,
         height: this.height,
         width: this.width,
-        pointWidth: 2
+        pointWidth: 3
       })
     })
+  }
+
+  initialPositions () {
+    let index = 0
+    for (let i = 0; i < this.nodes.length; i++) {
+      // select nodes that are sources
+      if (!this.nodes[i].targetLinks.length) {
+        // select all links between sources and their children
+        for (let j = 0; j < this.nodes[i].sourceLinks.length; j++) {
+          const d = this.nodes[i].sourceLinks[j]
+          for (let k = 0; k < d.value; k++, index++) {
+            const x0 = d.source.x + (Math.random() * d.source.dx)
+            const y0 = d.source.y + d.sy + (Math.random() * d.dy)
+            const x1 = d.target.x + (Math.random() * d.target.dx)
+            const y1 = d.target.y + d.ty + (Math.random() * d.dy)
+
+            this.sourceX[index] = x0
+            this.sourceY[index] = y0
+            this.targetX[index] = x1
+            this.targetY[index] = y1
+            this.duration[index] = ((Math.random() * 18) + 2) * 1000
+            this.currentPositions.push(d)
+          }
+        }
+      }
+    }
   }
 }

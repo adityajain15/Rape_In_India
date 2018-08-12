@@ -1,6 +1,7 @@
 <template>
-  <div>
-  <ThreeSankey fileString="policeDisposal"></ThreeSankey>
+  <div class="w-90 center">
+    <ThreeSankey class="mv5" fileString="policeDisposal"/>
+    <ThreeSankey class="mv5" fileString="courtDisposal"/>
   </div>
 </template>
 
@@ -16,8 +17,7 @@ export default {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: Helvetica, sans-serif;
   color: #2c3e50;
-  height: 100vh;
-  width: 100vw;
 }
 </style>
