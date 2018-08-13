@@ -1,7 +1,6 @@
 <template>
   <div class="w-90 center">
     <ThreeSankey class="mv5" fileString="policeDisposal"/>
-    <ThreeSankey class="mv5" fileString="courtDisposal"/>
   </div>
 </template>
 

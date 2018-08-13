@@ -91,6 +91,6 @@ span{
   text-align: center;
   transform-origin: top left;
   transform: rotate(90deg);
-  font-size: 0.5em;
+  font-size: 10px;
 }
 </style>

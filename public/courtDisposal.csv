@@ -1,9 +1,9 @@
 source,target,value
-"Cases Pending Trial from the Previous Year",Total,118537
-"Cases Sent for Trial During the Year",Total,33628
-Total,"Cases Pending Investigation at the End of the Year",133373
-Total,Cases in which Trials were Completed,18552
-Total,"No. of Cases Disposed by Plea Bargaining",25
-Total,"Cases Compounded",215
-Cases in which Trials were Completed, Conviction, 4739
-Cases in which Trials were Completed, Acquittal or Discharge, 13813
+"Cases awaiting trial at the end of 2015",Total cases awaiting trial in 2016,118537
+"Cases sent for trial in 2016",Total cases awaiting trial in 2016,33628
+Total cases awaiting trial in 2016,Cases awaiting trial at the end of 2016,133373
+Total cases awaiting trial in 2016,Trials completed,18552
+Total cases awaiting trial in 2016,Plea Bargaining,25
+Total cases awaiting trial in 2016,Compounded,215
+Trials completed, Conviction, 4739
+Trials completed, Acquittal or Discharge, 13813
