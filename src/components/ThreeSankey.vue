@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div id="particleSankey">
     <canvas id="drawingBoard" :width="correctedWidth" :height="correctedHeight"/>
     <template v-for="(node, i) in this.textNodes">
       <span :key="i" :style=getSpanPosition(node)>{{node.name}}</span>
+      <div class="sankeyNodes" :key="i" :style=getNodePosition(node)></div>
     </template>
   </div>
 </template>
@@ -69,16 +70,30 @@ export default {
         left: `${node.x}px`,
         width: `${node.dy}px`
       }
+    },
+    getNodePosition (node) {
+      return {
+        top: `${node.y}px`,
+        left: `${node.x}px`,
+        width: `${node.dx}px`,
+        height: `${node.dy}px`
+      }
     }
   }
 }
 </script>
 
 <style>
-div{
+#particleSankey{
   height: 90vh;
   position: relative;
 }
+
+.sankeyNodes {
+  position: absolute;
+  border: 1px solid white;
+}
+
 canvas {
   width: 100%;
   height: 100%;
