@@ -35,11 +35,6 @@ export default {
       return this.textNodes.map(d=>d.value)
     }
   },
-  watch: {
-    textNodes (newVal, oldVal) {
-      //console.log(newVal)
-    }
-  },
   async mounted () {
     //resizing logic
     this.resize()
@@ -66,7 +61,7 @@ export default {
     },
     getSpanPosition (node) {
       return {
-        top: `${node.y}px`,
+        top: `${node.y + (node.dy / 2)}px`,
         left: `${node.x + node.dx + 5}px`
       }
     },
