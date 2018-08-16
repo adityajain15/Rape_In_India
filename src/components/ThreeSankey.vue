@@ -91,7 +91,7 @@ export default {
 
 .sankeyNodes {
   position: absolute;
-  border: 1px solid white;
+  border: 0.4px solid white;
 }
 
 canvas {

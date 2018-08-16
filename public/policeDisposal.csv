@@ -12,11 +12,11 @@ source,target,value
 "Final Report",Mistake of Fact,249
 "Final Report",Non Cognizable,66
 "Final Report","Chargesheet submitted; Cases sent for trial",33628
-"Cases awaiting trial at the end of 2015",Total cases awaiting trial in 2016,118537
-"Chargesheet submitted; Cases sent for trial",Total cases awaiting trial in 2016,33628
-Total cases awaiting trial in 2016,Cases awaiting trial at the end of 2016,133373
-Total cases awaiting trial in 2016,Trials completed,18552
-Total cases awaiting trial in 2016,Plea Bargaining,25
-Total cases awaiting trial in 2016,Compounded,215
+"Cases awaiting trial at the end of 2015",Total cases sent for trial in 2016,118537
+"Chargesheet submitted; Cases sent for trial",Total cases sent for trial in 2016,33628
+Total cases sent for trial in 2016,Cases awaiting trial at the end of 2016,133373
+Total cases sent for trial in 2016,Trials completed,18552
+Total cases sent for trial in 2016,Plea Bargaining,25
+Total cases sent for trial in 2016,Compounded,215
 Trials completed, Conviction, 4739
 Trials completed, Acquittal or Discharge, 13813
