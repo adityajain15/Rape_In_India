@@ -67,8 +67,7 @@ export default {
     getSpanPosition (node) {
       return {
         top: `${node.y}px`,
-        left: `${node.x}px`,
-        width: `${node.dy}px`
+        left: `${node.x + node.dx + 5}px`
       }
     },
     getNodePosition (node) {
@@ -104,8 +103,7 @@ span{
   font-family: Helvetica, sans-serif;
   font-weight: lighter;
   text-align: center;
-  transform-origin: top left;
-  transform: rotate(90deg);
+  width: 10em;
   font-size: 10px;
 }
 </style>
