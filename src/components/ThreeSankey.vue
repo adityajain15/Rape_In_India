@@ -3,7 +3,7 @@
     <canvas id="drawingBoard" :width="correctedWidth" :height="correctedHeight"/>
     <template v-for="(node, i) in this.textNodes">
       <span :key="i" :style=getSpanPosition(node)>{{node.name}}</span>
-      <div class="sankeyNodes" :key="i" :style=getNodePosition(node)></div>
+      <div class="sankeyNodes" :key="node.name" :style=getNodePosition(node)></div>
     </template>
   </div>
 </template>
