@@ -62,7 +62,7 @@ export default {
     getSpanPosition (node) {
       return {
         top: `${node.y + (node.dy / 2)}px`,
-        left: `${node.x + node.dx + 5}px`
+        left: `${node.x + node.dx}px`
       }
     },
     getNodePosition (node) {
@@ -85,7 +85,7 @@ export default {
 
 .sankeyNodes {
   position: absolute;
-  border: 0.4px solid white;
+  border: 1px solid white;
 }
 
 canvas {
