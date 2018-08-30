@@ -1,14 +1,14 @@
 <template>
   <svg>
     <template v-for="node in nodes">
-      <rect v-if="node.hasOwnProperty('x0')" :x="marginLeft + node.x0" :y="marginTop + node.y0" :width="node.x1 - node.x0" :height="node.y1 - node.y0"/>
+      <rect v-if="node.hasOwnProperty('x0')" :x="marginLeft + node.x0" :y="marginTop + node.y0" :width="node.x1 - node.x0" :height="node.y1 - node.y0" :style="styleFunction(node)"/>
     </template>
   </svg>
 </template>
 
 <script>
 const debounce = require('lodash.debounce')
-import { hierarchy, treemap, treemapSliceDice, treemapSquarify } from 'd3-hierarchy'
+import { hierarchy, treemap, treemapSliceDice } from 'd3-hierarchy'
 
 export default {
   name: 'TreeMap',
@@ -49,6 +49,15 @@ export default {
       default: function () {
         return this.margin[3]
       }
+    },
+    styleFunction: {
+      default: function () {
+        return function (record) {
+          return {
+            fill: 'red'
+          }
+        }
+      }
     }
   },
   data () {
@@ -56,9 +65,7 @@ export default {
       width: 400,
       height: 400,
       root: hierarchy({}),
-      nodes: function () {
-        return this.root.descendants()
-      }
+      nodes: []
     }
   },
   mounted () {
@@ -72,7 +79,7 @@ export default {
           return d.value
         })
       this.layout(this.root)
-      this.nodes = this.root.descendants()
+      this.nodes = this.root.leaves()
     },
     width: function (newVal, oldVal) {
       this.root = hierarchy(this.treeData)
@@ -80,7 +87,7 @@ export default {
           return d.value
         })
       this.layout(this.root)
-      this.nodes = this.root.descendants()
+      this.nodes = this.root.leaves()
     }
   },
   methods: {
@@ -93,7 +100,7 @@ export default {
     layout () {
       return treemap()
         .size([this.width, this.height])
-        .tile(treemapSquarify)
+        .tile(treemapSliceDice)
         .padding(0)
     }
   }
@@ -101,8 +108,5 @@ export default {
 </script>
 
 <style scoped>
-rect {
-  fill: blue;
-  stroke: black;
-}
+
 </style>
