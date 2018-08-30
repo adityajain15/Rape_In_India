@@ -1,13 +1,15 @@
 <template>
   <div class="db w-90 center">
-    <div class="db w-50 center">
+    <div class="db w-50 center mv5">
       <BarChart v-if="data"
-        class="w-100"
+        class="w-100 vh-50"
+        style="min-height: 300px"
         :data="batchData(data.filter(d=>d.State == 'National')[0])" 
         :numTicks="4"
         verticalScaleType="log"
-        :styleFunction="barchartStyle"/>
-      <h3 class="tc f3">India</h3>
+        :styleFunction="barchartStyle"
+        :marginBottom="75"/>
+      <h3 class="tc f3 mt2 teko white">Age of victims in reported Rape crimes across India</h3>
     </div>
     <template v-for="record in data">
       <div v-if="record.State !== 'National'"
@@ -19,8 +21,10 @@
           :domain="[1,5000]" 
           :numTicks="3"
           verticalScaleType="log"
-          :styleFunction="barchartStyle"/>
-        <h5 class="tc f4">{{record.State}}</h5>
+          :styleFunction="barchartStyle"
+          :horizontalAxis="false"
+          :margin="[0, 0, 0, 0]"/>
+        <h5 class="tc f4 teko white">{{record.State}}</h5>
       </div>
     </template>
   </div>
@@ -47,15 +51,7 @@ export default {
       console.log(err)
     }
   },
-  computed: {
-  },
   methods: {
-    fillFunction (feature) {
-      const featureData = parseInt(this.ncrbData.filter(d=>d.State===feature.properties['NAME_1'])[0]['Rape_Total'])
-      return {
-        fill: this.scale(featureData)
-      }
-    },
     batchData (record) {
       return Object.keys(record).filter(d=>d!=="State" && d!=="Number of Cases" && d!=="Total Minor Victims" && d!=="Total Adult Victims" && d!=="Total Victims").map(d => {
         return {
@@ -68,12 +64,12 @@ export default {
       const name = record.key
       if (name === 'Below 6 Years' || name === 'Between 6 and 12 Years' || name === 'Between 12 and 16 Years' || name === 'Between 16 and 18 Years') {
         return {
-          fill: 'orange',
+          fill: 'red',
           stroke: 'none'
         }
       }
       return {
-        stroke: 'orange'
+        stroke: 'red'
       }
     }
   }
@@ -81,12 +77,4 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  color: white;
-  font-family: 'Teko', sans-serif;
-}
-h5 {
-  color: white;
-  font-family: 'Teko', sans-serif;
-}
 </style>

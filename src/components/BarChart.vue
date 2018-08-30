@@ -1,19 +1,26 @@
 <template>
   <svg>
-    <g class="bargraph-bars">
-      <template v-for="record in data">
-        <rect v-if="record.value" :x="horizontalScale(record.key)" :y="height - verticalScale(record.value)" :width="horizontalScale.bandwidth()" :height="verticalScale(record.value)" :style="styleFunction(record)"/>
-      </template>
-    </g>
-    <g class="bargraph-grid">
-      <template v-for="tick in verticalTicks">
-        <path :d="`M 0,${height - verticalScale(tick)} L ${width},${height - verticalScale(tick)}`" class="gridScale" :name="tick"/>
-      </template>
-    </g>
-    <g class="bargraph-labels">
-      <template v-for="tick in verticalTicks">
-        <text x="0" :y="height - verticalScale(tick)">{{tick}}</text>
-      </template>
+    <g class="bargraph" :transform="`translate(${marginLeft}, ${marginTop})`">
+      <g class="bargraph-bars">
+        <template v-for="record in data">
+          <rect v-if="record.value" :x="horizontalScale(record.key)" :y="height - verticalScale(record.value)" :width="horizontalScale.bandwidth()" :height="verticalScale(record.value)" :style="styleFunction(record)"/>
+        </template>
+      </g>
+      <g class="bargraph-grid">
+        <template v-for="tick in verticalTicks">
+          <path :d="`M 0,${height - verticalScale(tick)} L ${width},${height - verticalScale(tick)}`" class="gridScale" :name="tick"/>
+        </template>
+      </g>
+      <g class="bargraph-verticalAxis">
+        <template v-for="tick in verticalTicks">
+          <text x="0" :y="height - verticalScale(tick)">{{tick}}</text>
+        </template>
+      </g>
+      <g v-if="horizontalAxis" class="bargraph-horizontalAxis">
+        <template v-for="tick in horizontalTicks">
+          <text :x="horizontalScale(tick) + (horizontalScale.bandwidth() / 3)" :y="height+ horizontalAxisPadding" :transform="`rotate(40 ${horizontalScale(tick) + (horizontalScale.bandwidth() / 3)} ${height + horizontalAxisPadding})`">{{tick}}</text>
+        </template>
+      </g>
     </g>
   </svg>
 </template>
@@ -38,6 +45,44 @@ export default {
     paddingOuter: {
       type: Number,
       default: 0.5
+    },
+    margin: {
+      type: Array,
+      default: function () {
+        return [20, 20, 20, 20]
+      }
+    },
+    marginTop: {
+      type: Number,
+      default: function () {
+        return this.margin[0]
+      }
+    },
+    marginRight: {
+      type: Number,
+      default: function () {
+        return this.margin[1]
+      }
+    },
+    marginBottom: {
+      type: Number,
+      default: function () {
+        return this.margin[2]
+      }
+    },
+    marginLeft: {
+      type: Number,
+      default: function () {
+        return this.margin[3]
+      }
+    },
+    horizontalAxisPadding: {
+      type: Number,
+      default: 10
+    },
+    horizontalAxis: {
+      type: Boolean,
+      default: true
     },
     domain: {
       type: Array,
@@ -86,12 +131,15 @@ export default {
     },
     verticalTicks () {
       return this.numTicks ? this.verticalScale.ticks(this.numTicks) : this.verticalScale.ticks()
+    },
+    horizontalTicks () {
+      return this.data.map(d=>d.key)
     }
   },
   methods: {
     resizeWindow () {
-      this.width = this.$el.clientWidth
-      this.height = this.$el.clientHeight
+      this.width = this.$el.clientWidth - this.marginRight - this.marginLeft
+      this.height = this.$el.clientHeight - this.marginTop - this.marginBottom
     }
   }
 }
