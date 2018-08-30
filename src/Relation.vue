@@ -6,7 +6,7 @@
     </div>
     <template v-for="(record, index) in treeData">
       <div v-if="index !== (treeData.length - 1)" class="dib w-third w-25-ns mv3 v-top">
-        <TreeMap class="w-100 h3 vh-25-ns" :treeData="record"/>
+        <TreeMap class="w-100 h4 vh-25-ns" :treeData="record"/>
         <h5 class="tc f4 teko white">{{record.name}}</h5>
       </div>
     </template>

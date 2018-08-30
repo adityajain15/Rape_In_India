@@ -13,7 +13,7 @@
     </div>
     <template v-for="record in data">
       <div v-if="record.State !== 'National'"
-        class="dib w-25 mv3 v-top">
+        class="dib w-third w-25-ns mv3 v-top">
         <BarChart 
           class="w-100"
           :key="record.State" 
