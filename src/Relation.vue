@@ -1,6 +1,6 @@
 <template>
   <div class="db w-90 center">
-    <div class="db w-50 center mv5">
+    <div class="db w-90 w-50-ns center mv5">
       <TreeMap class="w-100 vh-50" :treeData="treeData[treeData.length - 1]"/>
       <h3 class="tc f3 mt2 teko white">Offenders relation to victims of Rape</h3>
     </div>

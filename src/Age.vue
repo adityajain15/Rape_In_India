@@ -1,6 +1,6 @@
 <template>
   <div class="db w-90 center">
-    <div class="db w-50 center mv5">
+    <div class="db w-90 w-50-ns center mv5">
       <BarChart v-if="data"
         class="w-100 vh-50"
         style="min-height: 300px"
