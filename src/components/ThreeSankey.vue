@@ -77,7 +77,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #particleSankey{
   height: 90vh;
   position: relative;

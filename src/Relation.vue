@@ -3,6 +3,9 @@
     <div class="db w-90 w-50-ns center mv5">
       <TreeMap class="w-100 vh-50" :treeData="treeData[treeData.length - 1]" :styleFunction="styleFunction"/>
       <h3 class="tc f3 mt2 teko white">Offenders relation to victims of Rape</h3>
+      <template v-for="label of scale.domain()">
+        <span class="dib ma1 pa1 teko black" :style="`background: ${scale(label)}`">{{label}}</span>
+      </template>
     </div>
     <template v-for="(record, index) in treeData">
       <div v-if="index !== (treeData.length - 1)" class="dib w-third w-25-ns mv3 v-top">
@@ -17,21 +20,20 @@
 import { csv as d3csv } from 'd3-fetch'
 import { scaleOrdinal } from 'd3-scale'
 import { schemeSet1 } from 'd3-scale-chromatic'
+import LegendOrdinal from './components/LegendOrdinal'
 import TreeMap from './components/TreeMap'
 
 export default {
   name: 'Relation',
   components: {
-    TreeMap
+    TreeMap,
+    LegendOrdinal
   },
   data () {
     return {
       treeData: {},
-      scale: scaleOrdinal().range(schemeSet1)
+      scale: scaleOrdinal().domain(["Grand Father/ Father/ Brother/ Son","Close Family Members", "Relatives","Partner / Husband / Separated/ Ex", "Employer/Coworker", "Neighbors","Known persons on promise to marry the victim","Other known persons","Offenders not known to victims"]).range(schemeSet1),
     }
-  },
-  computed: {
-  
   },
   methods: {
     styleFunction (record) {
