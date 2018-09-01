@@ -1,6 +1,8 @@
 <template>
   <div>
-    
+    <template v-for="label in labels">
+      <span :style="`fill: ${scale(label)}`">{{label}}</span>
+    </template>
   </div>
 </template>
 

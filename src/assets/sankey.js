@@ -62,28 +62,6 @@ export default function () {
     return y - (size[1] / 2)
   }
 
-  sankey.initiate = function (scene) {
-    const points = createPoints(scene)
-
-    const positions = points.geometry.attributes.position.array
-    let index = 0
-  }
-
-  function createPoints (scene) {
-    let totalSourceValue = 0
-    for (let i = 0; i < nodes.length; i++) {
-      if (!nodes[i].targetLinks.length) {
-        totalSourceValue = totalSourceValue + nodes[i].value
-      }
-    }
-    var material = new PointsMaterial({color: 0xff0000, size: 1})
-    var geometry = new BufferGeometry()
-    geometry.addAttribute('position', new BufferAttribute(new Float32Array(totalSourceValue * 2), 2))
-    const points = new Points(geometry, material)
-    scene.add(points)
-    return points
-  }
-
   // Populate the sourceLinks and targetLinks for each node.
   // Also, if the source and target are not objects, assume they are indices.
   function computeNodeLinks() {

@@ -8,14 +8,15 @@ export default class ParticleSankey {
   constructor (reglInstance, csvData, [width, height], textNodes) {
     this.data = sankeyHelper(csvData)
     this.regl = reglInstance
+    this.mobile = width < 480
     this.width = width
     this.height = height
     this.graph = new SankeyLayout()
       .nodes(this.data.nodes)
       .links(this.data.links)
-      .nodeWidth(10)
+      .nodeWidth(this.mobile ? 4 : 10)
       .nodePadding(40)
-      .size([width - 20, height - 20])
+      .size(this.mobile ? [height - 20, width - 20] : [width - 20, height - 20])
       .layout(32)
     this.nodes = this.graph.nodes()
     this.numPoints = this.getNumPoints()
@@ -84,6 +85,7 @@ export default class ParticleSankey {
     })
 
     this.regl.frame(({time}) => {
+      const height = this.mobile ? this.width : this.height
       if (!this.startTime) {
         this.startTime = new Float32Array(this.numPoints)
         for (let i = 0; i < this.numPoints; i++) {
@@ -106,8 +108,8 @@ export default class ParticleSankey {
           this.elapsed[i] = (time - this.startTime[i]) * 1000
           this.sourceX[i] = this.targetX[i]
           this.sourceY[i] = this.targetY[i]
-          this.targetX[i] = d.target.x + (Math.random() * d.target.dx)
-          this.targetY[i] = d.target.y + d.ty + (Math.random() * d.dy)
+          this.targetX[i] = this.mobile ? (d.target.y + d.ty + (Math.random() * d.dy)) : d.target.x + (Math.random() * d.target.dx)
+          this.targetY[i] = this.mobile ? (d.target.x + (Math.random() * d.target.dx)) : d.target.y + d.ty + (Math.random() * d.dy)
         }
       }
 
@@ -135,10 +137,11 @@ export default class ParticleSankey {
         for (let j = 0; j < this.nodes[i].sourceLinks.length; j++) {
           const d = this.nodes[i].sourceLinks[j]
           for (let k = 0; k < d.value; k++, index++) {
-            const x0 = d.source.x + (Math.random() * d.source.dx)
-            const y0 = d.source.y + d.sy + (Math.random() * d.dy)
-            const x1 = d.target.x + (Math.random() * d.target.dx)
-            const y1 = d.target.y + d.ty + (Math.random() * d.dy)
+            //d.source.x + d.sy + d.dy / 2
+            const x0 = this.mobile ? d.source.y + d.sy + (Math.random() * d.dy) : d.source.x + (Math.random() * d.source.dx)
+            const y0 = this.mobile ? d.source.x + (Math.random() * d.source.dx) : d.source.y + d.sy + (Math.random() * d.dy)
+            const x1 = this.mobile ? d.target.y + d.ty + (Math.random() * d.dy) : d.target.x + (Math.random() * d.target.dx)
+            const y1 = this.mobile ? d.target.x + (Math.random() * d.target.dx) : d.target.y + d.ty + (Math.random() * d.dy)
 
             this.sourceX[index] = x0
             this.sourceY[index] = y0
