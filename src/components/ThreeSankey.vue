@@ -33,6 +33,9 @@ export default {
     },
     vals () {
       return this.textNodes.map(d=>d.value)
+    }, 
+    mobile () {
+      return this.width < 480
     }
   },
   async mounted () {
@@ -61,16 +64,16 @@ export default {
     },
     getSpanPosition (node) {
       return {
-        top: `${node.y + (node.dy / 2)}px`,
-        left: `${node.x + node.dx}px`
+        top: `${this.mobile ? 5 + node.x + (node.dx / 2) : node.y + (node.dy / 2)}px`,
+        left: `${this.mobile ? node.y : 5 + node.x + node.dx}px`
       }
     },
     getNodePosition (node) {
       return {
-        top: `${node.y}px`,
-        left: `${node.x}px`,
-        width: `${node.dx}px`,
-        height: `${node.dy}px`
+        top: `${this.mobile ? node.x : node.y}px`,
+        left: `${this.mobile ? node.y : node.x}px`,
+        width: `${this.mobile ? node.dy : node.dx}px`,
+        height: `${this.mobile ? node.dx : node.dy}px`
       }
     }
   }
@@ -97,7 +100,6 @@ span{
   position: absolute;
   font-family: Helvetica, sans-serif;
   font-weight: lighter;
-  text-align: center;
   width: 10em;
   font-size: 10px;
 }
