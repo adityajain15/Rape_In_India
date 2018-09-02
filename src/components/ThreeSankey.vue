@@ -3,7 +3,7 @@
     <canvas id="drawingBoard" :width="correctedWidth" :height="correctedHeight"/>
     <template v-for="(node, i) in this.textNodes">
       <span :key="i" :style=getSpanPosition(node)>{{node.name}}</span>
-      <div class="sankeyNodes" :key="node.name" :style=getNodePosition(node)></div>
+      <div v-if="node.dy > 5" class="sankeyNodes" :key="node.name" :style=getNodePosition(node)></div>
     </template>
   </div>
 </template>
@@ -64,8 +64,11 @@ export default {
     },
     getSpanPosition (node) {
       return {
-        top: `${this.mobile ? 5 + node.x + (node.dx / 2) : node.y + (node.dy / 2)}px`,
-        left: `${this.mobile ? node.y : 5 + node.x + node.dx}px`
+        top: `${this.mobile ? 5 + node.x + (node.dx / 2) : node.y}px`,
+        left: `${this.mobile ? node.y : 5 + node.x + node.dx}px`,
+        width: `${this.mobile ? node.dy : node.dx}px`,
+        'min-width': `${this.mobile ? 1 : 50}px`,
+        'font-size': `${this.mobile ? 7 : 10}px`  
       }
     },
     getNodePosition (node) {
@@ -100,7 +103,5 @@ span{
   position: absolute;
   font-family: Helvetica, sans-serif;
   font-weight: lighter;
-  width: 10em;
-  font-size: 10px;
 }
 </style>

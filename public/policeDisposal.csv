@@ -4,16 +4,16 @@ source,target,value
 "Total cases investigated by police in 2016","Cases pending investigation by end of 2016",16678
 "Total cases investigated by police in 2016","Cases withdrawn by the government",6
 "Total cases investigated by police in 2016","Disposed by the Police",38387
-"Disposed by the Police","Cases Transferred to other PS/ Magistrate", 129
-"Disposed by the Police","Cases Not Investigated U/S 157(1) (b) of Cr.PC", 2
+"Disposed by the Police","Transferred¹", 129
+"Disposed by the Police","Not Investigated²", 2
 "Disposed by the Police",Final Report, 38256
 "Final Report",True but insufficient Evidence,1474
 "Final Report",False,2839
 "Final Report",Mistake of Fact,249
 "Final Report",Non Cognizable,66
-"Final Report","Chargesheet submitted; Cases sent for trial",33628
+"Final Report","Chargesheet submitted",33628
 "Cases awaiting trial at the end of 2015",Total cases sent for trial in 2016,118537
-"Chargesheet submitted; Cases sent for trial",Total cases sent for trial in 2016,33628
+"Chargesheet submitted",Total cases sent for trial in 2016,33628
 Total cases sent for trial in 2016,Cases awaiting trial at the end of 2016,133373
 Total cases sent for trial in 2016,Trials completed,18552
 Total cases sent for trial in 2016,Plea Bargaining,25
