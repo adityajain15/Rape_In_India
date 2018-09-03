@@ -78,6 +78,9 @@ export default class ParticleSankey {
         },
         pointWidth: function (context, props) {
           return props.pointWidth
+        },
+        isMobile: function (context, props) {
+          return props.isMobile
         }
       },
       count: this.numPoints,
@@ -123,7 +126,8 @@ export default class ParticleSankey {
         startTime: this.startTime,
         height: this.height,
         width: this.width,
-        pointWidth: 3
+        pointWidth: 3,
+        isMobile: this.mobile
       })
     })
   }

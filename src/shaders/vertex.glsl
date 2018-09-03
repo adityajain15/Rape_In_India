@@ -9,6 +9,7 @@ attribute float duration;
 uniform float stageWidth;
 uniform float stageHeight;
 uniform float pointWidth;
+uniform bool isMobile;
 
 // Credits to Peter Beshai
 vec2 normalizeCoords(float x, float y) {
@@ -27,17 +28,27 @@ float easeCubicInOut(float t) {
   return t;
 }
 
+float linear (float t) {
+  if (t > 1.0) {
+    t = 1.0;
+  }
+  return t;
+}
+
 void main () {
   gl_PointSize = pointWidth;
-  float t;
+  float yt;
+  float xt;
   if (elapsed < 0.0) {
-    t = 0.0;
+    yt = 0.0;
+    xt = 0.0;
   } else {
-    t = easeCubicInOut(elapsed / duration);
+    yt = isMobile ? linear(elapsed / duration) : easeCubicInOut(elapsed / duration);
+    xt = isMobile ? easeCubicInOut(elapsed / duration) : linear(elapsed / duration);
   }
 
-  float currentX = mix(sourceX, targetX, t);
-  float currentY = mix(sourceY, targetY, t);
+  float currentX = mix(sourceX, targetX, xt);
+  float currentY = mix(sourceY, targetY, yt);
 
   gl_Position = vec4(normalizeCoords(currentX, currentY), 0, 1);
 }
