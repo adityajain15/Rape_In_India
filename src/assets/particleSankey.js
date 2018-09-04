@@ -29,7 +29,9 @@ export default class ParticleSankey {
     this.elapsed = new Float32Array(this.numPoints)
     this.currentPositions = []
     this.startTime = undefined
+  }
 
+  start () {
     this.init()
   }
 
@@ -151,7 +153,7 @@ export default class ParticleSankey {
             this.sourceY[index] = y0
             this.targetX[index] = x1
             this.targetY[index] = y1
-            this.duration[index] = ((Math.random() * 18) + 2) * 1000
+            this.duration[index] = ((Math.random() * 18) + 5) * 1000
             this.currentPositions.push(d)
           }
         }

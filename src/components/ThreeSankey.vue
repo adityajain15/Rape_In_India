@@ -13,6 +13,8 @@ import ParticleSankey from '../assets/particleSankey'
 import { csv as d3csv } from 'd3-fetch'
 const debounce = require('lodash.debounce')
 const regl = require('regl')
+import 'intersection-observer'
+import scrollama from 'scrollama'
 
 export default {
   name: 'ThreeSankey',
@@ -53,6 +55,13 @@ export default {
       const sankeyData = await d3csv(`${this.fileString}.csv`)
       const graph = new ParticleSankey(reglInstance, sankeyData, [this.$el.children[0].clientWidth, this.$el.children[0].clientHeight], this.textNodes)
       this.textNodes = graph.getNodes()
+      const waypoint = scrollama()
+        waypoint
+          .setup({
+            step: '.step',
+            offset: 1
+          })
+          .onStepEnter(()=>{graph.start()})
     } catch (err) {
       console.log(err)
     }
@@ -78,6 +87,9 @@ export default {
         width: `${this.mobile ? node.dy : node.dx}px`,
         height: `${this.mobile ? node.dx : node.dy}px`
       }
+    },
+    handleStepEnter () {
+      console.log('dude')
     }
   }
 }
