@@ -59,7 +59,8 @@ export default {
         waypoint
           .setup({
             step: '.step',
-            offset: 1
+            offset: 1,
+            once: true
           })
           .onStepEnter(()=>{graph.start()})
     } catch (err) {
