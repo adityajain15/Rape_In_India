@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 w-50-ns">
+  <div class="w-100 w-50-ns dib">
     <IndiaMap class="w-100 vh-75" :featureStyle="this.fillFunction"/>
     <LegendLinear class="w-100 db center w-90-ns h3" :mapScale="scale"/>
   </div>

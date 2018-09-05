@@ -5,9 +5,17 @@
 * {
 	box-sizing: border-box;
 }
+
 .teko {
 	font-family: 'Teko', sans-serif;
+	font-weight: 600;
 }
+
+.teko-body{
+	font-family: 'Teko', sans-serif;
+	font-weight: 400;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -37,9 +45,6 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
-ol, ul {
-	list-style: none;
-}
 blockquote, q {
 	quotes: none;
 }
@@ -51,4 +56,14 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+.ml-0 {
+	margin-left: 0;
+}
+
+@media screen and (min-width: 30em) {
+	.ml-5-ns {
+		margin-left: 5%;
+	}
 }

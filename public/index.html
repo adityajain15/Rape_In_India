@@ -7,17 +7,110 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="stylesheet" href="<%= BASE_URL %>reset.css">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
-    <link href="https://fonts.googleapis.com/css?family=Teko:600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Teko:400,600" rel="stylesheet">
     <title>ncrb</title>
   </head>
   <body style="background:black">
     <noscript>
       <strong>We're sorry but this interactive doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <h1 class="f-headline lh-solid teko white w-90 center ttu mt5 mb0 tc">Rape in India</h1>
-    <h1 class="f1 lh-title teko white w-90 w-60-ns mv0 center tc">A visual exploration of systemic rape culture</h1>
-    <div id="mapNumber"></div>
-    <div id="mapRate"></div>
+    <h1 class="f-headline lh-solid teko w-90 center ttu mt5 mb0 tc" style="color: red;">Rape in India</h1>
+    <h1 class="f2 teko white w-90 w-60-ns mv0 center tc">A visual exploration of systemic rape culture</h1>
+    <p class="white georgia f4 lh-copy center db mv3 measure">
+      Earlier this year, I woke up to news of two brutal cases of rape and murder in India. 
+      The news was made more devastating for the fact that both victims were minors. In the following weeks I observed a familiar pattern unfold — 
+      public anger, media frenzy and promises of stricter laws by legislators. After a while, the news cycle moved on and everybody went back
+      to their usual business. It was the Déjà vu that I found particularly troublesome. Rape crime has been normalized within Indian society 
+      and there seems be a mysterious inertia that prevents us from figuring out sustainable long-term solutions for this problem.
+    </p>
+    <blockquote class="white teko f2 w-60 center db mv5">
+      The death penalty is easy political candy to hand out to angry and upset citizens, but it’s much harder
+      to work on justice systems that guarantee swift, certain punishment for sexual assault or to limit the 
+      violent patriarchies that cause rape in the first place
+      <a class="db tr" style="color: red;" href="https://www.washingtonpost.com/world/asia_pacific/india-institutes-death-penalty-for-child-rape-in-wake-of-8-year-olds-brutal-death/2018/04/21/0d5c0ba2-4578-11e8-b2dc-b0a403e4720a_story.html">Karuna Nundy</a>
+    </blockquote>
+    <p class="white georgia f4 lh-copy measure center db mv3">
+      The following interactive is an excercise in citizen journalism. It uses data from the National Crime Record Bureau’s 2016 report to visually 
+      explore some facets of reported rape crime as well as the systemic dysfunction of the Indian justice system in tackling reported rape crime. A conversation
+      about the problem is a prerequisite for solving the problem, and I hope that this piece can serve as a visual framework to kickstart civic 
+      discourse about the issue with our families and everyday friends, whether it be at the dinner table or the local cafe.
+    </p>
+    <h1 class="f-subheadline lh-title teko w-90 w-60-ns mv6 center tc" style="color: red;">The Crime</h1>
+    <p class="white georgia f4 lh-copy measure center db mv3">
+      Before we dive into the visuals lets look at the Indian law that defines what a rape crime is. Here is section 375 of the Indian Penal Code.
+    </p>
+    <blockquote class="white teko f3 w-60 center db mv5">§375. A man is said to commit "rape" if he <br><br>
+      <ol type="a">
+        <li>penetrates his penis, to any extent, into the vagina, mouth, urethra or anus of a woman or makes her to do so with him or any other person; or</li>
+        <li>inserts, to any extent, any object or a part of the body, not being the penis, into the vagina, the urethra or anus of a woman or makes her to do so with him or any other person; or</li>
+        <li>manipulates any part of the body of a woman so as to cause penetration into the vagina, urethra, anus or any part of body of such woman or makes her to do so with him or any other person; or</li>
+        <li>applies his mouth to the vagina, anus, urethra of a woman or makes her to do so with him or any other person</li>
+      </ol><br>
+      under the circumstances falling under any of the following seven descriptions<br><br>
+      <ol type="I">
+        <li>Against her will</li>
+        <li>Without her consent</li>
+        <li>With her consent, when her consent has been obtained by putting her or any person in whom she is interested, in fear of death or of hurt</li>
+        <li>With her consent, when the man knows that he is not her husband and that her consent is given because she believes that he is another man to whom she is or believes herself to be lawfully married</li>
+        <li>With her consent when, at the time of giving such consent, by reason of unsoundness of mind or intoxication or the administration by him personally or through another of any stupefying or unwholesome Substance, she is unable to understand the nature and consequences of that to which she gives consent</li>
+        <li>With or without her consent, when she is under eighteen years of age</li>
+        <li>When she is unable to communicate consent</li>
+      </ol><br>
+      Explanation
+      <ol type="1">
+        <li>For the purposes of this section, "vagina" shall also include labia majora</li>
+        <li>Consent means an unequivocal voluntary agreement when the woman by words, gestures or any form of verbal or non-verbal communication, communicates willingness to participate in the specific sexual act; Provided that a woman who does not physically resist to the act of penetration shall not by the reason only of that fact, be regarded as consenting to the sexual activity</li>
+      </ol><br>
+      Exceptions
+      <ol type="1">
+        <li>A medical procedure or intervention shall not constitute rape</li>
+        <li>Sexual intercourse or sexual acts by a man with his own wife, the wife not being under fifteen years of age, is not rape</li>
+      </ol>
+    </blockquote>
+    <p class="white georgia f4 lh-copy measure center db mv3">
+      Some observations here: Firstly, the law is gendered by definition. It assumes that the crime is commited by a man against a woman. This makes the reversed scenario problematic, and also 
+      fails to protect people who have been sexually assaulted by members of the same sex. All sexual acts between members of the same sex, whether forced or consensual, are charged as an offence under 
+      Section 377 of the Indian Penal Code. Secondly, it is worth noting that Section 90 of the Indian Penal Code, reproduced below, may invalidate consent given under misconception of fact. This section 
+      seems to be the basis for a fair number of reported rape crimes in which the accused is a person who allegedly obtained consent under the pretext of marriage.
+    </p>
+    <blockquote class="white teko f3 w-60 center db mv5">§90. Consent known to be given under fear or misconception<br><br>
+      A consent is not such a consent as is intended by any Section of this Code, if the consent is given by a person under 
+      fear of injury, or under a misconception of fact, and if the person doing the act knows, or has reason to believe, 
+      that the consent was given in consequence of such fear or misconception;
+    </blockquote>
+    <p class="white georgia f4 lh-copy measure center db mv3">
+      Thirdly, in 2017 the Supreme Court ruled that since the age of consent is eighteen, any sexual intercourse by a man with his own wife aged between fifteen
+      to eighteen years, Section 377 exception not withstanding, is indeed rape. Fourthly, the Section 377 exception still stands for victims of marital rape above eighteen years unless the couple has legally seperated. 
+      This is understandably one of the most contentious parts of the existing legal framework. Despite popular support for outlawing marital rape, the government in power
+      at the time of writing has <a class="link" style="color:red;" href="https://www.independent.co.uk/news/world/asia/india-marital-rape-ban-fight-legal-papers-file-parliament-law-change-marriage-a7924106.html">filed legal papers</a> to prevent such a change.
+    </p>
+    <div>
+      <div id="mapNumber"></div>
+      <div class="w-100 w-40-ns ml-0 ml-5-ns white georgia f4 lh-copy measure dib v-top">
+        <p>
+          This is a choropleth map that shows the number of rape cases reported within Indian states. Madhya Pradesh reported the highest number of rape crimes (4,882) 
+          followed by Uttar Pradesh (4,816), Maharashtra (4,189) and Rajasthan (3,656). 
+        </p>
+        <p class="mv4">
+          Now, this is admittedly not the best map to visualize the situation. The area and population for each Indian state  
+          can differ greatly, so states with large population sizes will always come out for the worse by this yardstick. 
+          Its imperative that we normalize our data for population to get a ‘better’ picture.
+        </p>
+      </div>
+    </div>
+    <div>
+      <div id="mapRate"></div>
+      <div class="w-100 w-40-ns ml-0 ml-5-ns white georgia f4 lh-copy measure dib v-top">
+        <p>
+          Now, this is a slightly better map that normalizes the data for population and depicts rate of rape crimes per lakh (100,000) 
+          population. We can see that Delhi and Sikkim have some of the highest rates of rape crime, but this map of 
+          rate of rape crimes still does not reflect the ground reality for most states.
+        </p>
+        <p class="mv4">
+          The elephant in the room happens to be the sheer number of rape crimes that go unreported every year.
+        </p>
+      </div>
+    </div>
     <h2 class="f1 lh-title teko white w-90 w-60-ns mv0 center tc">Just under half of all victims are <div class="di" style="color:red;">Minors</div></h2>
     <div id="age"></div>
     <div id="relation"></div>
