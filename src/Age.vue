@@ -9,7 +9,7 @@
         verticalScaleType="log"
         :styleFunction="barchartStyle"
         :marginBottom="75"/>
-      <h3 class="tc f3 mt2 teko white">Age of victims in reported Rape crimes across India</h3>
+      <h3 class="tc f3 mt2 teko white">Age of victims in reported rape crimes across India</h3>
     </div>
     <template v-for="record in data">
       <div v-if="record.State !== 'National'"
