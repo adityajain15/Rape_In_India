@@ -1,5 +1,5 @@
 module.exports = {
   baseUrl: process.env.NODE_ENV === 'production'
-    ? '/ncrb/'
+    ? '/Rape_In_India/'
     : '/'
 }
