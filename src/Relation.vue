@@ -2,10 +2,10 @@
   <div class="db w-90 center">
     <div class="db w-90 w-50-ns center mv5">
       <TreeMap class="w-100 vh-50" :treeData="treeData[treeData.length - 1]" :styleFunction="styleFunction"/>
-      <h3 class="tc f3 mt2 teko white">Offenders relation to victims of Rape</h3>
       <template v-for="label of scale.domain()">
         <span class="dib ma1 pa1 teko black" :style="`background: ${scale(label)}`">{{label}}</span>
       </template>
+      <h3 class="tc f3 mt2 teko white">Offenders relation to victims of Rape</h3>
     </div>
     <template v-for="(record, index) in treeData">
       <div v-if="index !== (treeData.length - 1)" class="dib w-third w-25-ns mv3 v-top">

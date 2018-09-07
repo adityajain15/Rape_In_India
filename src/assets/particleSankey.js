@@ -1,6 +1,6 @@
 import sankeyHelper from './sankeyHelper'
 import SankeyLayout from '../assets/sankey'
-const weightedRandom = require('weighted-random');
+const weightedRandom = require('weighted-random')
 const fragmentShader = require('raw-loader!glslify-loader!../shaders/frag.glsl')
 const vertexShader = require('raw-loader!glslify-loader!../shaders/vertex.glsl')
 

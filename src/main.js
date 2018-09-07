@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import SankeyContainer from './SankeyContainer.vue'
+import SankeyMultiples from './SankeyMultiples.vue'
 import MapNumber from './MapNumber.vue'
 import MapRate from './MapRate.vue'
 import Age from './Age.vue'
@@ -10,8 +11,13 @@ Vue.config.productionTip = false
 
 new Vue({
   store,
-  render: h => h(SankeyContainer)
+  render: h => h(SankeyMultiples)
 }).$mount('#sankey')
+
+new Vue({
+  store,
+  render: h => h(SankeyContainer)
+}).$mount('#particleSankey')
 
 new Vue({
   store,
