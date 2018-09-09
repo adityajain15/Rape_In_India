@@ -8,9 +8,9 @@
       <h3 class="tc f3 mt2 teko white">Offenders relation to victims of Rape</h3>
     </div>
     <template v-for="(record, index) in treeData">
-      <div v-if="index !== (treeData.length - 1)" class="dib w-third w-25-ns mv3 v-top">
-        <TreeMap class="w-100 h4 vh-25-ns" :treeData="record" :styleFunction="styleFunction"/>
-        <h5 class="tc f4 teko white">{{record.name}}</h5>
+      <div v-if="index !== (treeData.length - 1)" class="dib w-third w-ninth-ns mv3 v-top">
+        <TreeMap class="w-100 h4 vh-15-ns" :treeData="record" :styleFunction="styleFunction"/>
+        <h5 class="tc f4 teko white mt1">{{record.name}}</h5>
       </div>
     </template>
   </div>
@@ -105,6 +105,16 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+@media screen and (min-width: 30em) {
+  .w-twelfth-ns{
+    width: calc(100% / 12);
+  }
+  .w-ninth-ns{
+    width: calc(100% / 9);
+  }
+  .vh-15-ns{
+    height: 15vh;
+  }
+}
 </style>

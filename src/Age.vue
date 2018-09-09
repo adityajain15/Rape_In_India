@@ -13,9 +13,9 @@
     </div>
     <template v-for="record in data">
       <div v-if="record.State !== 'National'"
-        class="dib w-third w-25-ns mv3 v-top">
+        class="dib w-third w-ninth-ns mv3 v-top">
         <BarChart 
-          class="w-100"
+          class="w-100 vh-15-ns"
           :key="record.State" 
           :data="batchData(record)" 
           :domain="[1,5000]" 
@@ -24,7 +24,7 @@
           :styleFunction="barchartStyle"
           :horizontalAxis="false"
           :margin="[0, 0, 0, 0]"/>
-        <h5 class="tc f4 teko white">{{record.State}}</h5>
+        <h5 class="tc f4 teko white mt1">{{record.State}}</h5>
       </div>
     </template>
   </div>
