@@ -11,7 +11,7 @@
       </span>
     </div>
     <div class="mv3">
-      <span class="db teko-body">Percentage of all cases disposed by the Police</span>
+      <span class="db teko-body">Police disposal rate</span>
       <span class="f2" :style="avgDisposed > disposalRate ? `color: red;`: `color: limegreen;`">{{`${disposalRate}%`}}</span>
       <span class="dib ml1 teko-body">{{`${avgDisposed > disposalRate ? 'Below average': 'Above average'}`}}</span>
     </div>
@@ -29,6 +29,11 @@
       <span class="dib f5 teko-body ml1">
         {{`from last year`}}
       </span>
+    </div>
+    <div class="mv3">
+      <span class="db teko-body">Court disposal rate</span>
+      <span class="f2" :style="avgCourtDisposal > courtDisposalRate ? `color: red;`: `color: limegreen;`">{{`${courtDisposalRate}%`}}</span>
+      <span class="dib ml1 teko-body">{{`${avgCourtDisposal > courtDisposalRate ? 'Below average': 'Above average'}`}}</span>
     </div>
     
   </div>
@@ -61,11 +66,18 @@ export default {
     avgChargesheet: {
       type: Number,
       default: 0
+    },
+    avgCourtDisposal: {
+      type: Number,
+      default: 0
     }
   },
   computed: {
     disposalRate () {
       return parseFloat((this.record['police_disposed'] / this.record['total']) * 100).toFixed(1)
+    },
+    courtDisposalRate () {
+      return parseFloat((this.record['court_disposal'] / this.record['court_total']) * 100).toFixed(1)
     },
     pendingChange () {
       return this.record['police_pending_2016'] - this.record['police_pending_2015']

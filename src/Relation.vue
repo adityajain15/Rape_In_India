@@ -5,11 +5,11 @@
       <template v-for="label of scale.domain()">
         <span class="dib ma1 pa1 teko black" :style="`background: ${scale(label)}`">{{label}}</span>
       </template>
-      <h3 class="tc f3 mt2 teko white">Offenders relation to victims of Rape</h3>
+      <h3 class="tc f3 mt2 teko white">Offenders relation to victims of Rape across India</h3>
     </div>
     <template v-for="(record, index) in treeData">
       <div v-if="index !== (treeData.length - 1)" class="dib w-third w-ninth-ns mv3 v-top">
-        <TreeMap class="w-100 h4 vh-15-ns" :treeData="record" :styleFunction="styleFunction"/>
+        <TreeMap class="w-100 h4" :treeData="record" :styleFunction="styleFunction"/>
         <h5 class="tc f4 teko white mt1">{{record.name}}</h5>
       </div>
     </template>
