@@ -58,8 +58,8 @@ export default {
   },
   methods: {
     resizeWindow () {
-      this.width = this.$el.clientWidth
-      this.height = this.$el.clientHeight
+      this.width = this.$el.getBoundingClientRect().width
+      this.height = this.$el.getBoundingClientRect().height
     }
   }
 }

@@ -35,6 +35,16 @@
       <span class="f2" :style="avgCourtDisposal > courtDisposalRate ? `color: red;`: `color: limegreen;`">{{`${courtDisposalRate}%`}}</span>
       <span class="dib ml1 teko-body">{{`${avgCourtDisposal > courtDisposalRate ? 'Below average': 'Above average'}`}}</span>
     </div>
+    <div class="mv3">
+      <span class="db teko-body">Conviction rate</span>
+      <template v-if="record['court_completed']!=0">
+        <span class="f2" :style="avgConviction > courtConvicted ? `color: red;`: `color: limegreen;`">{{`${courtConvicted}%`}}</span>
+        <span class="dib ml1 teko-body">{{`${avgConviction > courtConvicted ? 'Below average': 'Above average'}`}}</span>
+      </template>
+      <template v-else>
+        <span class="f2">NA</span>
+      </template>
+    </div>
     
   </div>
 </template>
@@ -70,6 +80,10 @@ export default {
     avgCourtDisposal: {
       type: Number,
       default: 0
+    },
+    avgConviction: {
+      type: Number,
+      default: 0
     }
   },
   computed: {
@@ -78,6 +92,9 @@ export default {
     },
     courtDisposalRate () {
       return parseFloat((this.record['court_disposal'] / this.record['court_total']) * 100).toFixed(1)
+    },
+    courtConvicted () {
+      return parseFloat((this.record['court_convicted'] / this.record['court_completed']) * 100).toFixed(1)
     },
     pendingChange () {
       return this.record['police_pending_2016'] - this.record['police_pending_2015']
@@ -94,8 +111,8 @@ export default {
   },
   methods: {
     resizeWindow () {
-      this.width = this.$el.clientWidth - this.marginRight - this.marginLeft
-      this.height = this.$el.clientHeight - this.marginTop - this.marginBottom
+      this.width = this.$el.getBoundingClientRect().width
+      this.height = this.$el.getBoundingClientRect().height
       this.mobile = window.innerWidth < 480
     }
   }

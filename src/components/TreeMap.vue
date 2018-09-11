@@ -92,8 +92,8 @@ export default {
   },
   methods: {
     resizeWindow () {
-      this.width = this.$el.clientWidth - this.marginRight - this.marginLeft
-      this.height = this.$el.clientHeight - this.marginTop - this.marginBottom
+      this.width = this.$el.getBoundingClientRect().width - this.marginLeft - this.marginRight
+      this.height = this.$el.getBoundingClientRect().height - this.marginTop - this.marginBottom
     }
   },
   computed: {
