@@ -1,7 +1,7 @@
 <template>
   <div class="db w-90 center">
     <div class="db w-90 w-50-ns center mv5">
-      <TreeMap class="w-100" :style="`height: ${windowHeight * .5}`" :containerHeight="windowHeight * .5" :treeData="treeData[treeData.length - 1]" :styleFunction="styleFunction"/>
+      <TreeMap class="w-100" :style="`height: ${windowHeight * .5}px;`" :containerHeight="windowHeight * .5" :treeData="treeData[treeData.length - 1]" :styleFunction="styleFunction"/>
       <template v-for="label of scale.domain()">
         <span class="dib ma1 pa1 teko black" :style="`background: ${scale(label)}`">{{label}}</span>
       </template>
@@ -9,7 +9,7 @@
     </div>
     <template v-for="(record, index) in treeData">
       <div v-if="index !== (treeData.length - 1)" class="dib w-third w-ninth-ns mv3 v-top">
-        <TreeMap class="w-100" :style="`height: ${windowHeight * .15}`" :containerHeight="windowHeight * .15" :treeData="record" :styleFunction="styleFunction"/>
+        <TreeMap class="w-100" :style="`height: ${windowHeight * .15}px;`" :containerHeight="windowHeight * .15" :treeData="record" :styleFunction="styleFunction"/>
         <h5 class="tc f4 teko white mt1">{{record.name}}</h5>
       </div>
     </template>
