@@ -1,7 +1,7 @@
 <template>
   <div class="db w-90 center">
     <div class="db w-90 w-50-ns center mv5">
-      <TreeMap class="w-100 vh-50" :style="`height: ${windowHeight * .5}`" :containerHeight="windowHeight * .5" :treeData="treeData[treeData.length - 1]" :styleFunction="styleFunction"/>
+      <TreeMap class="w-100" :style="`height: ${windowHeight * .5}`" :containerHeight="windowHeight * .5" :treeData="treeData[treeData.length - 1]" :styleFunction="styleFunction"/>
       <template v-for="label of scale.domain()">
         <span class="dib ma1 pa1 teko black" :style="`background: ${scale(label)}`">{{label}}</span>
       </template>
