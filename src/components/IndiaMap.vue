@@ -13,7 +13,7 @@ const debounce = require('lodash.debounce')
 
 export default {
   name: 'IndiaMap',
-  props: ['featureStyle'],
+  props: ['windowHeight','featureStyle'],
   data () {
     return {
       mapData: {},
@@ -29,6 +29,11 @@ export default {
       this.mapData = await d3json('india_geo.json')
     } catch (err) {
       console.log(err)
+    }
+  },
+  watch: {
+    windowHeight (newVal, oldVal) {
+      this.resizeWindow()
     }
   },
   computed: {

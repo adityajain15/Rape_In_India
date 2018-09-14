@@ -104,6 +104,10 @@ export default {
           return {}
         }
       }
+    },
+    containerHeight: {
+      type: Number,
+      default: 0
     }
   },
   data () {
@@ -115,6 +119,11 @@ export default {
   mounted () {
     this.resizeWindow()
     window.addEventListener('resize', debounce(this.resizeWindow, 60))
+  },
+  watch: {
+    containerHeight (newVal, oldVal) {
+      this.resizeWindow()
+    }
   },
   computed: {
     horizontalScale () {

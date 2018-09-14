@@ -2,7 +2,9 @@
   <div class="db w-90 center">
     <div class="db w-90 w-50-ns center mv5">
       <BarChart v-if="data"
-        class="w-100 vh-50"
+        class="w-100"
+        :style="`height: ${windowHeight * .5}`"
+        :containerHeight="windowHeight * .5"
         style="min-height: 300px"
         :data="batchData(data.filter(d=>d.State == 'National')[0])" 
         :numTicks="4"
@@ -15,7 +17,9 @@
       <div v-if="record.State !== 'National'"
         class="dib w-third w-ninth-ns mv3 v-top">
         <BarChart 
-          class="w-100 vh-15-ns"
+          class="w-100"
+          :style="`height: ${windowHeight * .15}`"
+          :containerHeight="windowHeight * .15"
           :key="record.State" 
           :data="batchData(record)" 
           :domain="[1,5000]" 
@@ -41,8 +45,12 @@ export default {
   },
   data () {
     return {
-      data: false
+      data: false,
+      windowHeight: 0
     }
+  },
+  mounted () {
+    this.windowHeight = window.innerHeight
   },
   async created () {
     try {

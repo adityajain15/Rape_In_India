@@ -18,7 +18,7 @@ import scrollama from 'scrollama'
 
 export default {
   name: 'ThreeSankey',
-  props: ['fileString'],
+  props: ['fileString', 'containerHeight'],
   data () {
     return {
       height: 500,
@@ -38,6 +38,11 @@ export default {
     }, 
     mobile () {
       return this.width < 480
+    }
+  },
+  watch: {
+    containerHeight (newVal, oldVal) {
+      this.resize()
     }
   },
   async mounted () {

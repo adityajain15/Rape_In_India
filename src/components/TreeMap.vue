@@ -58,6 +58,10 @@ export default {
           }
         }
       }
+    },
+    containerHeight: {
+      type: Number,
+      default: 0
     }
   },
   data () {
@@ -88,6 +92,9 @@ export default {
         })
       this.layout(this.root)
       this.nodes = this.root.leaves()
+    },
+    containerHeight (newVal, oldVal) {
+      this.resizeWindow()
     }
   },
   methods: {
