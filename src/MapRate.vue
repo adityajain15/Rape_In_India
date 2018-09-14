@@ -1,6 +1,6 @@
 <template>
   <div class="w-100 w-50-ns dib">
-    <IndiaMap class="w-100" :style="`height:${.75 * windowHeight}`" :windowHeight="windowHeight" :featureStyle="this.fillFunction"/>
+    <IndiaMap class="w-100" :style="`height:${.75 * windowHeight}px;`" :windowHeight="windowHeight" :featureStyle="this.fillFunction"/>
     <LegendLinear class="w-100 db center w-90-ns h3" :mapScale="scale"/>
   </div>
 </template>
