@@ -93,9 +93,6 @@ export default {
         width: `${this.mobile ? node.dy : node.dx}px`,
         height: `${this.mobile ? node.dx : node.dy}px`
       }
-    },
-    handleStepEnter () {
-      console.log('dude')
     }
   }
 }
