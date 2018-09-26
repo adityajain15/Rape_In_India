@@ -1,0 +1,22 @@
+source,target,value
+"Cases registered with police in 2016","Total cases investigated by police in 2016",502
+"Police investigations pending from 2015","Total cases investigated by police in 2016",4816
+"Total cases investigated by police in 2016","Cases pending investigation by end of 2016",740
+"Total cases investigated by police in 2016","Cases withdrawn by the government",0
+"Total cases investigated by police in 2016","Disposed by the Police",4578
+"Disposed by the Police","Transferred¹",0
+"Disposed by the Police","Not Investigated²",0
+"Disposed by the Police",Final Report, 870
+"Final Report",True but insufficient Evidence,466
+"Final Report",False,404
+"Final Report",Mistake of Fact,0
+"Final Report",Non Cognizable,0
+"Final Report","Chargesheet submitted",3708
+"Chargesheet submitted",Total cases sent for trial in 2016,3708
+"Cases awaiting trial at the end of 2015",Total cases sent for trial in 2016,7950
+Total cases sent for trial in 2016,Cases awaiting trial at the end of 2016,10091
+Total cases sent for trial in 2016,Trials completed,1552
+Total cases sent for trial in 2016,Plea Bargaining,0
+Total cases sent for trial in 2016,Compounded,15
+Trials completed, Conviction, 747
+Trials completed, Acquittal or Discharge, 805
